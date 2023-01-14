@@ -14,10 +14,15 @@ Install with pip:
 $ pip install -r requirements.txt
 ``` -->
  
-## Run Flask
-### Run flask for develop
+## Run Docker
+### Build docker
 ```
-$ docker run -itd -p 80:80 --name noob_baseball noob230112/baseball:{verstion Tag}
+$ docker build -t noob230112/baseball:v1.0.0_alpha.0 .
+```
+
+### Run docker for develop
+```
+$ docker run -itd -p 80:80 --name noob_baseball noob230112/baseball:{tag}
 ```
 In Docker Nginx, Default port is `80`
 
