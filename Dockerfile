@@ -6,6 +6,8 @@ RUN apt-get update
 RUN apt-get install -y nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 RUN chown -R www-data:www-data /var/lib/nginx
+# RUN mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default__
+COPY ./default /home/default
 
 # Setting
 RUN apt-get install -y vim

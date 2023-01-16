@@ -17,12 +17,15 @@ $ pip install -r requirements.txt
 ## Run Docker
 ### Build docker
 ```
-$ docker build -t noob230112/baseball:v1.0.0_alpha.0 .
+$ docker build -t noob230112/baseball:{tag} .
 ```
 
 ### Run docker for develop
 ```
-$ docker run -itd -p 80:80 --name noob_baseball noob230112/baseball:{tag}
+$ docker run -itd -p 80:80 -p 5000:5000 --name noob_baseball noob230112/baseball:{tag}
+$ docker exec -it noob_baseball /bin/bash
+$ python3 /home/svr/baseball_backend/main.py
+
 ```
 In Docker Nginx, Default port is `80`
 
@@ -31,3 +34,5 @@ In Docker Nginx, Default port is `80`
 ## Log
 
 - Version 1.0.0_alpha.0 ( 2023.01.15 )
+- Version 1.0.0_alpha.1 ( 2023.01.16 )
+
