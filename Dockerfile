@@ -6,13 +6,14 @@ RUN apt-get update
 RUN apt-get install -y nginx
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 RUN chown -R www-data:www-data /var/lib/nginx
-# RUN mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default__
 COPY ./default /home/default
+RUN mv /home/default /etc/nginx/sites-available/default
+# COPY ./default /home/default.conf
 
 # Setting
 RUN apt-get install -y vim
 RUN apt-get install -y net-tools
-RUN apt-get install -y git
+RUN apt install -y git
 RUN mkdir /home/svr/
 RUN mkdir /home/cli/
 
@@ -20,13 +21,24 @@ RUN mkdir /home/cli/
 RUN apt-get install -y python3.9 && apt-get install -y python3-pip
 WORKDIR /home/svr/
 RUN git clone https://github.com/noooooooooooooooooooooob/baseball_backend.git
-COPY ./requirements.txt baseball_backend/requirements.txt
+WORKDIR /home/svr/baseball_backend/
 RUN chmod -R 755 /home/svr/
-RUN pip install -r baseball_backend/requirements.txt
+RUN nohup python3 -u /home/svr/baseball_backend/main.py &
 
+# Install Node
+RUN apt install -y curl
+RUN curl -s https://deb.nodesource.com/setup_16.x | bash
+RUN apt-get update
+RUN apt install -y nodejs
+RUN npm i -g npm
+RUN npm i -g yarn
+WORKDIR /home/cli/
+RUN git clone https://github.com/noooooooooooooooooooooob/baseball_frontend.git
+WORKDIR /home/cli/baseball_frontend/
+RUN yarn 
+RUN nohup npm run dev &
+
+COPY ./server.sh /home/server.sh
+RUN chmod +x /home/server.sh
 WORKDIR /etc/nginx
 CMD ["nginx"]
-
-EXPOSE 80
-EXPOSE 13000
-EXPOSE 5000
