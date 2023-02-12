@@ -11,9 +11,11 @@ RUN mv /home/default /etc/nginx/sites-available/default
 # COPY ./default /home/default.conf
 
 # Setting
-RUN apt-get install -y vim
-RUN apt-get install -y net-tools
+RUN apt install -y vim
+RUN apt install -y net-tools
 RUN apt install -y git
+RUN apt install -y systemd
+RUN apt install -y psmisc
 RUN mkdir /home/svr/
 RUN mkdir /home/cli/
 
@@ -39,6 +41,8 @@ RUN yarn
 RUN nohup npm run dev &
 
 COPY ./server.sh /home/server.sh
+COPY ./stop.sh /home/stop.sh
 RUN chmod +x /home/server.sh
-WORKDIR /etc/nginx
+RUN chmod +x /home/stop.sh
+WORKDIR /home
 CMD ["nginx"]
