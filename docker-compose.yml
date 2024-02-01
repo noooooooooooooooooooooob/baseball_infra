@@ -1,0 +1,32 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./svr/
+      dockerfile: Dockerfile.backend
+    ports:
+      - "5001:5001"
+    env_file:
+      - .env
+
+  frontend:
+    build:
+      context: ./cli/
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env_frontend
+
+  postgres:
+    build:
+      context: ./db/
+      dockerfile: Dockerfile.postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - /home/noob/data/backup:/etc/cron.d/postgresql_backup
+    environment:
+      POSTGRES_DB: baseball
+      POSTGRES_USER: noob
+      POSTGRES_PASSWORD: vupguJOZHn0GifZiWvj7Z6kNk_acbE7t

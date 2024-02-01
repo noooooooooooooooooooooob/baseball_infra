@@ -32,8 +32,8 @@ RUN apt install -y curl
 RUN curl -s https://deb.nodesource.com/setup_16.x | bash
 RUN apt-get update
 RUN apt install -y nodejs
-RUN npm i -g npm
-RUN npm i -g yarn
+RUN npm install -g npm@7.0.0
+RUN npm install -g yarn
 WORKDIR /home/cli/
 RUN git clone https://github.com/noooooooooooooooooooooob/baseball_frontend.git
 WORKDIR /home/cli/baseball_frontend/
